@@ -9,9 +9,13 @@ public class Player : MonoBehaviour {
 	private Light light;
 	private int current_light;
 
-	public static LightMode[] modes = new LightMode[3] {new LightMode(30, 3.5f), new LightMode(25, 4), new LightMode(20, 4.5f) };
+	private float lerpSpeed = 5;
 
-	public class LightMode{
+
+	public LightMode[] modes;
+
+	[System.Serializable]
+	public struct LightMode{
 
 		public float intensity;
 		public float range;
@@ -24,8 +28,8 @@ public class Player : MonoBehaviour {
 	}
 
 	public void setLight(LightMode mode){
-		light.intensity = mode.intensity;
-		light.range = mode.range;
+		light.intensity = Mathf.Lerp (light.intensity, mode.intensity, lerpSpeed * Time.deltaTime);
+		light.range = Mathf.Lerp (light.range, mode.range, lerpSpeed * Time.deltaTime);
 	}
 
 	// Use this for initialization
@@ -33,30 +37,25 @@ public class Player : MonoBehaviour {
 		body = GetComponent<Rigidbody2D> ();
 		light = GetComponentInChildren<Light> ();
 		body.gravityScale = 0;
-		current_light = 0;
-		setLight (modes [current_light]);
+		light.range = 3.5f;
+		light.intensity = 30;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		float horizontal = Input.GetAxisRaw ("Horizontal");
 		float vertical = Input.GetAxisRaw ("Vertical");
-		float l1 = Input.GetAxisRaw ("Light1");
-		float l2 = Input.GetAxisRaw("Light2");
-		float l3 = Input.GetAxisRaw("Light3");
+		float lt = Input.GetAxisRaw ("Light");
 
-		int new_light = -1;
-		if (l3 > 0) {
-			new_light = 2;
-		} else if (l2 > 0) {
-			new_light = 1;
-		} else if (l1 > 0) {
-			new_light = 0;
-		}
+		if (lt > 0) {
+			light.range = Mathf.Min (light.range + .1f, 4.5f);
+			light.intensity = Mathf.Min (light.intensity + 1f, 40);
 
-		if (new_light != -1 && new_light != current_light) {
-			setLight (modes[new_light]);
-			current_light = new_light;
+		} else if (lt < 0) {
+			light.range = Mathf.Max (light.range - .1f, 3);
+			light.intensity = Mathf.Max (light.intensity - .1f, 30);
+	
+
 		}
 
 
