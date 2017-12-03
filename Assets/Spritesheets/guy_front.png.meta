@@ -1,19 +1,13 @@
 fileFormatVersion: 2
-guid: 086417fc8989a40d69493aab38ecb805
-timeCreated: 1512281167
+guid: 1d53829b11b63475a8b70c65e780f33d
+timeCreated: 1512282431
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: rpgcritters2_0
-    21300002: rpgcritters2_1
-    21300004: rpgcritters2_2
-    21300006: rpgcritters2_3
-    21300008: rpgcritters2_4
-    21300010: rpgcritters2_5
-    21300012: rpgcritters2_6
-    21300014: rpgcritters2_7
-    21300016: rpgcritters2_8
-    21300018: rpgcritters2_9
+    21300000: guy_front_0
+    21300002: guy_front_1
+    21300004: guy_front_2
+    21300006: guy_front_3
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -56,7 +50,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 32
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -115,141 +109,57 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rpgcritters2_0
+      name: guy_front_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: guy_front_1
       rect:
         serializedVersion: 2
         x: 16
-        y: 186
-        width: 32
+        y: 0
+        width: 16
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: rpgcritters2_1
+      name: guy_front_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: guy_front_3
       rect:
         serializedVersion: 2
         x: 48
-        y: 185.6
-        width: 48.5
-        height: 46.4
+        y: 0
+        width: 16
+        height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: rpgcritters2_2
-      rect:
-        serializedVersion: 2
-        x: 9
-        y: 146
-        width: 37
-        height: 34
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: rpgcritters2_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 139.6
-        width: 48.5
-        height: 46.4
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: rpgcritters2_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 93.6
-        width: 48.5
-        height: 46.4
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: rpgcritters2_5
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 93.6
-        width: 48.5
-        height: 46.4
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: rpgcritters2_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 47.6
-        width: 48.5
-        height: 46.4
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: rpgcritters2_7
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 47.6
-        width: 48.5
-        height: 46.4
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: rpgcritters2_8
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1.5999985
-        width: 48.5
-        height: 46.4
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: rpgcritters2_9
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 1.5999985
-        width: 48.5
-        height: 46.4
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

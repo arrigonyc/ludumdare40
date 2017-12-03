@@ -43,6 +43,7 @@ public class EnemyAggresive : MonoBehaviour {
 						if (GetComponent<EnemyPatrol>() != null) {
 							GetComponent<EnemyPatrol> ().enabled = true;
 						}
+						GetComponent<EnemyMovement> ().light_modifier = 1;
 					}
 				} else {
 					counting = true;

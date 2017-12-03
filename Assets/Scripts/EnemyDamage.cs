@@ -11,7 +11,7 @@ public class EnemyDamage : MonoBehaviour {
 		normal = normal.normalized;
 
 		if (other.gameObject.tag == "Player") {
-			
+			applyKnock (other.gameObject, normal);
 		}
 	}
 

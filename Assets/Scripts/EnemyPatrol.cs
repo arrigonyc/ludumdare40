@@ -9,8 +9,7 @@ public class EnemyPatrol : MonoBehaviour {
 	public Vector2 max_dist;
 	public Vector2 destination;
 	public float check_time, start_timer;
-
-	
+	public float patrol_speed;
 
 	public bool enabled;
 
@@ -18,7 +17,6 @@ public class EnemyPatrol : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		enabled = true;
 		body = GetComponent<EnemyMovement> ();
 	}
 	
@@ -26,6 +24,7 @@ public class EnemyPatrol : MonoBehaviour {
 	void Update () {
 
 		if (enabled) {
+			body.speed = patrol_speed;
 			float elapsed = Time.time - start_timer;
 
 			if (elapsed >= check_time) {
@@ -53,12 +52,9 @@ public class EnemyPatrol : MonoBehaviour {
 
 	}
 
-	float sign(){
-		return Random.value < .5 ? 1 : -1;
-	}
 
 	Vector2 dir(){
-		return Random.value < .5 ? new Vector2 (sign (), 0) : new Vector2 (0, sign ());
+		return Random.insideUnitCircle;
 	}
 
 	void randomizeDestination(){
@@ -67,13 +63,6 @@ public class EnemyPatrol : MonoBehaviour {
 
 		Vector2 dist = d * travel;
 
-		if (dist.x != 0) {
-			dist.x = dist.x * sign ();
-		}
-
-		if (dist.y != 0) {
-			dist.y = dist.y * sign ();
-		}
 
 		Vector2 pos = new Vector2 (transform.position.x, transform.position.y);
 

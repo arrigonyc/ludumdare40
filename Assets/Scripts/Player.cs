@@ -9,7 +9,7 @@ public class Player : MonoBehaviour {
 	private Light light;
 	private int current_light;
 
-	private List<GameObject> inRange;
+	public bool hasKey;
 
 	public float health, maxHealth;
 
@@ -18,17 +18,23 @@ public class Player : MonoBehaviour {
 
 	public float flicker_duration, flicker_delay;
 
+	private float max_light_start, temp_range, temp_intensity;
+	private Color temp_color;
+
+	public Color onHit_color;
+
 	private bool knockedBack;
 	private Vector2 knock_destination;
 
 	private SpriteRenderer sprite;
+
+	public Animator anim;
 
 	// Use this for initialization
 	void Awake () {
 		sprite = GetComponent<SpriteRenderer> ();
 		body = GetComponent<Rigidbody2D> ();
 		light = GetComponentInChildren<Light> ();
-		inRange = new List<GameObject> ();
 		body.gravityScale = 0;
 		light.range = 3.5f;
 		light.intensity = 20;
@@ -46,8 +52,8 @@ public class Player : MonoBehaviour {
 				light.intensity = Mathf.Min (light.intensity + 1f, 30);
 
 			} else if (lt < 0) {
-				light.range = Mathf.Max (light.range - .1f, 3);
-				light.intensity = Mathf.Max (light.intensity - 1f, 20);
+				light.range = Mathf.Max (light.range - .1f, 2);
+				light.intensity = Mathf.Max (light.intensity - 1f, 10);
 	
 
 			}
@@ -78,14 +84,22 @@ public class Player : MonoBehaviour {
 
 			if (left) {
 				new_vel.x -= speed;
+				anim.SetInteger ("dx", 1);
 			} else if (right) {
 				new_vel.x += speed;
-			} 
+				anim.SetInteger ("dx", 1);
+			} else {
+				anim.SetInteger ("dx", 0);
+			}
 
 			if (up) {
 				new_vel.y += speed;
+				anim.SetInteger ("dy", 1);
 			} else if (down) {
 				new_vel.y -= speed;
+				anim.SetInteger ("dy", -1);
+			} else {
+				anim.SetInteger ("dy", 0);
 			}
 
 			body.velocity = new_vel;
@@ -97,9 +111,21 @@ public class Player : MonoBehaviour {
 				body.velocity = new Vector2 (body.velocity.x, 0);
 			}
 
+			float elapsed = Time.time - max_light_start;
+			if (elapsed >= 1) {
+				light.intensity = temp_intensity;
+				light.range = temp_range;
+				light.color = temp_color;
+				max_light_start = temp_range = temp_intensity = 0;
+			}
+
 			if (body.velocity == Vector2.zero) {
 				knockedBack = false;
 				knock_destination = Vector2.zero;
+				light.intensity = temp_intensity;
+				light.color = temp_color;
+				light.range = temp_range;
+				max_light_start = temp_range = temp_intensity = 0;
 			}
 		}
 
@@ -111,8 +137,6 @@ public class Player : MonoBehaviour {
 				flicker_start = 0;
 			}
 		}
-
-		checkEnemies ();
 	}
 
 	IEnumerator Flicker(){
@@ -130,6 +154,7 @@ public class Player : MonoBehaviour {
 			health = Mathf.Max (0, health - dmg);
 			flicker_start = Time.time;
 			flickering = true;
+			GetComponent<CameraShake> ().startShake ();
 			StartCoroutine (Flicker ());
 		}
 	}
@@ -139,30 +164,16 @@ public class Player : MonoBehaviour {
 			knockedBack = true;
 			body.velocity = dir * speed * knock_modifier;
 			knock_destination = new Vector2 (transform.position.x, transform.position.y) + (dir * (knock_strength * knock_modifier));
+
+			temp_intensity = light.intensity;
+			temp_range = light.range;
+			temp_color = light.color;
+			light.color = onHit_color;
+			light.intensity = 30;
+			light.range = 4.5f;
+			max_light_start = Time.time;
 		}
 	}
 
-	void checkEnemies(){
-		for (int i = 0; i < inRange.Count; i++) {
-			inRange [i].GetComponent<EnemyAggresive>().inRange = false;
-		}
 
-		inRange.Clear ();
-
-		Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), light.range/2);
-
-		for (int i = 0; i < colliders.Length; i++) {
-			GameObject obj = colliders [i].gameObject;
-			if (obj.tag == "Enemy") {
-				if (obj.GetComponent<EnemyAggresive> () != null) {
-					obj.GetComponent<EnemyAggresive> ().inRange = true;
-					obj.GetComponent<EnemyAggresive> ().target = gameObject;
-					inRange.Add (obj);
-				}
-			}
-			
-		}
-
-	
-	}
 }
