@@ -9,98 +9,160 @@ public class Player : MonoBehaviour {
 	private Light light;
 	private int current_light;
 
-	private float lerpSpeed = 5;
+	private List<GameObject> inRange;
 
+	public float health, maxHealth;
 
-	public LightMode[] modes;
+	private bool flickering;
+	private float flicker_start;
 
-	[System.Serializable]
-	public struct LightMode{
+	public float flicker_duration, flicker_delay;
 
-		public float intensity;
-		public float range;
+	private bool knockedBack;
+	private Vector2 knock_destination;
 
-		public LightMode(float i, float r){
-			intensity = i;
-			range = r;
-		}
-
-	}
-
-	public void setLight(LightMode mode){
-		light.intensity = Mathf.Lerp (light.intensity, mode.intensity, lerpSpeed * Time.deltaTime);
-		light.range = Mathf.Lerp (light.range, mode.range, lerpSpeed * Time.deltaTime);
-	}
+	private SpriteRenderer sprite;
 
 	// Use this for initialization
 	void Awake () {
+		sprite = GetComponent<SpriteRenderer> ();
 		body = GetComponent<Rigidbody2D> ();
 		light = GetComponentInChildren<Light> ();
+		inRange = new List<GameObject> ();
 		body.gravityScale = 0;
 		light.range = 3.5f;
-		light.intensity = 30;
+		light.intensity = 20;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		float horizontal = Input.GetAxisRaw ("Horizontal");
-		float vertical = Input.GetAxisRaw ("Vertical");
-		float lt = Input.GetAxisRaw ("Light");
+		if (!knockedBack) {
+			float horizontal = Input.GetAxisRaw ("Horizontal");
+			float vertical = Input.GetAxisRaw ("Vertical");
+			float lt = Input.GetAxisRaw ("Light");
 
-		if (lt > 0) {
-			light.range = Mathf.Min (light.range + .1f, 4.5f);
-			light.intensity = Mathf.Min (light.intensity + 1f, 40);
+			if (lt > 0) {
+				light.range = Mathf.Min (light.range + .1f, 4.5f);
+				light.intensity = Mathf.Min (light.intensity + 1f, 30);
 
-		} else if (lt < 0) {
-			light.range = Mathf.Max (light.range - .1f, 3);
-			light.intensity = Mathf.Max (light.intensity - .1f, 30);
+			} else if (lt < 0) {
+				light.range = Mathf.Max (light.range - .1f, 3);
+				light.intensity = Mathf.Max (light.intensity - 1f, 20);
 	
 
-		}
+			}
 
+			bool left, right, up, down;
 
-//		Debug.Log (horizontal);
+			if (horizontal > 0) {
+				right = true;
+				left = false;
+			} else if (horizontal < 0) {
+				left = true;
+				right = false;
+			} else {
+				left = right = false;
+			}
 
-		bool left, right, up, down;
+			if (vertical > 0) {
+				up = true;
+				down = false;
+			} else if (vertical < 0) {
+				up = false;
+				down = true;
+			} else {
+				up = down = false;
+			}
 
-		if (horizontal > 0) {
-			right = true;
-			left = false;
-		} else if (horizontal < 0) {
-			left = true;
-			right = false;
+			Vector2 new_vel = Vector2.zero;
+
+			if (left) {
+				new_vel.x -= speed;
+			} else if (right) {
+				new_vel.x += speed;
+			} 
+
+			if (up) {
+				new_vel.y += speed;
+			} else if (down) {
+				new_vel.y -= speed;
+			}
+
+			body.velocity = new_vel;
 		} else {
-			left = right = false;
+			if (Mathf.Floor (transform.position.x) == Mathf.Floor (knock_destination.x)) {
+				body.velocity = new Vector2 (0, body.velocity.y);
+			}
+			if (Mathf.Floor (transform.position.y) == Mathf.Floor (knock_destination.y)) {
+				body.velocity = new Vector2 (body.velocity.x, 0);
+			}
+
+			if (body.velocity == Vector2.zero) {
+				knockedBack = false;
+				knock_destination = Vector2.zero;
+			}
 		}
 
-		if (vertical > 0) {
-			up = true;
-			down = false;
-		} else if (vertical < 0) {
-			up = false;
-			down = true;
-		} else {
-			up = down = false;
+		if (flickering) {
+			float elapsed = Time.time - flicker_start;
+			if (elapsed >= flicker_duration) {
+				flickering = false;
+				StopCoroutine (Flicker ());
+				flicker_start = 0;
+			}
 		}
 
-		Vector2 new_vel = Vector2.zero;
+		checkEnemies ();
+	}
 
-		if (left) {
-			new_vel.x -= speed;
-		} else if (right) {
-			new_vel.x += speed;
-		} 
+	IEnumerator Flicker(){
+		
+		while (flickering) {
+			sprite.color = Color.black;
+			yield return new WaitForSeconds(flicker_delay);
+			sprite.color = Color.white;
+			yield return new WaitForSeconds(flicker_delay);
+		}
+	}
 
-		if (up) {
-			new_vel.y += speed;
-		} else if (down) {
-			new_vel.y -= speed;
+	public void damage(float dmg){
+		if (!flickering) {
+			health = Mathf.Max (0, health - dmg);
+			flicker_start = Time.time;
+			flickering = true;
+			StartCoroutine (Flicker ());
+		}
+	}
+
+	public void knockBack(Vector2 dir, float knock_strength, float knock_modifier){
+		if (!flickering) {
+			knockedBack = true;
+			body.velocity = dir * speed * knock_modifier;
+			knock_destination = new Vector2 (transform.position.x, transform.position.y) + (dir * (knock_strength * knock_modifier));
+		}
+	}
+
+	void checkEnemies(){
+		for (int i = 0; i < inRange.Count; i++) {
+			inRange [i].GetComponent<EnemyAggresive>().inRange = false;
 		}
 
-//		Debug.Log (new_vel);
+		inRange.Clear ();
 
-		body.velocity = new_vel;
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), light.range/2);
 
+		for (int i = 0; i < colliders.Length; i++) {
+			GameObject obj = colliders [i].gameObject;
+			if (obj.tag == "Enemy") {
+				if (obj.GetComponent<EnemyAggresive> () != null) {
+					obj.GetComponent<EnemyAggresive> ().inRange = true;
+					obj.GetComponent<EnemyAggresive> ().target = gameObject;
+					inRange.Add (obj);
+				}
+			}
+			
+		}
 
+	
 	}
 }
