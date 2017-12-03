@@ -11254,6 +11254,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1581331722}
   - component: {fileID: 1581331721}
+  - component: {fileID: 1581331723}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -11287,6 +11288,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1581331723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1581331720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73a698aaeb1904165b920136697adbdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boundOrigin: {x: -50, y: -50}
+  minBoundWidth: 100
+  maxBoundWidth: 100
+  minRoomWidth: 20
+  maxRoomWidth: 27
+  minRoomCount: 12
+  maxRoomCount: 12
+  obstacleFrequency: 0.07
+  walkableMap: {fileID: 72830928}
+  blockedMap: {fileID: 737013226}
+  t:
+  - {fileID: 11400000, guid: 74661140488374d0b813517158821deb, type: 2}
+  - {fileID: 11400000, guid: 8780903605651484e8adb94d35e7444f, type: 2}
+  - {fileID: 11400000, guid: 011dad238af334e179a2fe720a39bb6e, type: 2}
+  - {fileID: 11400000, guid: 1325ec885fe1e46179b90e892083fbdb, type: 2}
+  - {fileID: 11400000, guid: e3c3b620df08848b8999f82b6d05f8de, type: 2}
+  - {fileID: 11400000, guid: fd5dbce98053a4d6da0bc2a7af02a6e2, type: 2}
+  obstacles:
+  - {fileID: 11400000, guid: c748b05b5507b4791b9b98d8e6d30bea, type: 2}
+  - {fileID: 11400000, guid: 4dc00e98148e5472c82f32690f69b00f, type: 2}
+  - {fileID: 11400000, guid: c746fb4c845814d8ab5f14a9c0d67ada, type: 2}
+  wall: {fileID: 11400000, guid: 5e1ea59144c4e4746a3ab6a865e8a6ea, type: 2}
+  minHallWidth: 1
+  maxHallWidth: 4
+  CONNECTEDNESS: 0.121
 --- !u!1001 &1978113709
 Prefab:
   m_ObjectHideFlags: 0
