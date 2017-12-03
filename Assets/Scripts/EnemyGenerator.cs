@@ -63,19 +63,21 @@ public class EnemyGenerator : MonoBehaviour {
 
 
 					if (walkable_tile != null && blocked_tile == null) {
-						Vector3Int up_left = new Vector3Int (-1, 1, 0);
-						Vector3Int left = new Vector3Int (-1, 0, 0);
-						Vector3Int down_left = new Vector3Int (-1, -1, 0);
-						Vector3Int down = new Vector3Int (0, -1, 0);
-						Vector3Int down_right = new Vector3Int (1, -1, 0);
-						Vector3Int right = new Vector3Int (1, 0, 0);
-						Vector3Int up_right = new Vector3Int (1, 1, 0);
-						Vector3Int up = new Vector3Int (0, 1, 0);
-						if (randomized + up_left == null && randomized + left == null && randomized + down_left == null && randomized + down == null && randomized + down_right == null
-						   && randomized + right == null && randomized + up_right == null && randomized + up == null) {
-							Vector3 location = walkable.CellToWorld (randomized);
-							Collider2D[] colliders = Physics2D.OverlapAreaAll (new Vector2(location.x - extents.x, location.y + extents.y), new Vector2(max.x, max.y ));
+						Vector3Int up_left = randomized + new Vector3Int (-1, 1, 0);
+						Vector3Int left = randomized + new Vector3Int (-1, 0, 0);
+						Vector3Int down_left = randomized + new Vector3Int (-1, -1, 0);
+						Vector3Int down = randomized + new Vector3Int (0, -1, 0);
+						Vector3Int down_right = randomized + new Vector3Int (1, -1, 0);
+						Vector3Int right = randomized + new Vector3Int (1, 0, 0);
+						Vector3Int up_right = randomized + new Vector3Int (1, 1, 0);
+						Vector3Int up = randomized + new Vector3Int (0, 1, 0);
+						if (blocked.GetTile(up_left) == null && blocked.GetTile(left) == null && blocked.GetTile(down_left) == null && blocked.GetTile(down) == null
+							&& blocked.GetTile(down_right) == null && blocked.GetTile(right) == null && blocked.GetTile(up_right) == null  && blocked.GetTile(up) == null ) {
 
+							Vector3 location = walkable.CellToWorld (randomized);
+							Collider2D[] colliders = Physics2D.OverlapAreaAll (new Vector2(location.x - extents.x - distance, location.y + extents.y + distance), new Vector2(max.x + distance, max.y - distance ) );
+
+							Debug.Log (colliders.Length + ", " + prefabs[i]);
 							if (colliders.Length <= 0) {
 								GameObject clone = Instantiate (prefabs [i], location, Quaternion.identity) as GameObject;
 								clone.transform.localScale = transform.localScale;

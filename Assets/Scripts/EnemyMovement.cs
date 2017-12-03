@@ -39,7 +39,7 @@ public class EnemyMovement : MonoBehaviour {
 			}
 		}
 
-		body.velocity = new Vector2 (speed *light_modifier * direction.x, speed *light_modifier * direction.y);
+		body.velocity = new Vector2 (speed * Mathf.Min(light_modifier,1) * direction.x, speed * Mathf.Min(1, light_modifier) * direction.y);
 
 	}
 

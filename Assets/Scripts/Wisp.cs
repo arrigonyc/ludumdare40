@@ -51,7 +51,7 @@ public class Wisp : MonoBehaviour {
 				if (obj.GetComponent<EnemyAggresive> () != null) {
 					obj.GetComponent<EnemyAggresive> ().inRange = true;
 					obj.GetComponent<EnemyAggresive> ().target = transform.parent;
-					obj.GetComponent<EnemyMovement> ().light_modifier = light.intensity / 20;
+					obj.GetComponent<EnemyMovement> ().light_modifier = light.intensity / 25;
 					inRange.Add (obj);
 				}
 			}
