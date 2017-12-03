@@ -18,6 +18,7 @@ public class EnemyMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 
+
 	void LateUpdate () {
 		colliding = false;
 		if (direction != Vector2.zero) {
