@@ -10,7 +10,10 @@ public class Key : MonoBehaviour {
 		if (other.tag == "Player") {
 			other.GetComponent<Player> ().hasKey = true;
 			GameObject.FindGameObjectWithTag ("Exit").GetComponent<Collider2D> ().isTrigger = true;
+			GetComponent<KeyLight> ().clearEnemies ();
 			Destroy (gameObject);
 		}
 	}
+
+
 }

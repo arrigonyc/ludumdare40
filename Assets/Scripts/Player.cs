@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
+	public Canvas pause;
+
 	public float speed;
 	private Rigidbody2D body;
 	private Light light;
 	private int current_light;
+
+	public float light_range_max, light_intensity_max;
 
 	public bool hasKey;
 
@@ -39,17 +43,38 @@ public class Player : MonoBehaviour {
 		light.range = 3.5f;
 		light.intensity = 20;
 	}
+
+	public void pauseScreen(){
+		if (!pause.gameObject.activeInHierarchy) {
+			pause.gameObject.SetActive (true);
+			Time.timeScale = 0;
+		} else {
+			pause.gameObject.SetActive (false);
+			Time.timeScale = 1;
+		}
+	}
+
+	public void reset(){
+		transform.position = Vector3.zero;
+		light.range = 3.5f;
+		light.intensity = 20;
+	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+
+			pauseScreen ();
+		}
+
 		if (!knockedBack) {
 			float horizontal = Input.GetAxisRaw ("Horizontal");
 			float vertical = Input.GetAxisRaw ("Vertical");
 			float lt = Input.GetAxisRaw ("Light");
 
 			if (lt > 0) {
-				light.range = Mathf.Min (light.range + .1f, 4.5f);
-				light.intensity = Mathf.Min (light.intensity + 1f, 30);
+				light.range = Mathf.Min (light.range + .1f, light_range_max);
+				light.intensity = Mathf.Min (light.intensity + 1f, light_intensity_max);
 
 			} else if (lt < 0) {
 				light.range = Mathf.Max (light.range - .1f, 2);
