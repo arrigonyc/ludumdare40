@@ -46,6 +46,11 @@ public class RandomDungeonGenerator : MonoBehaviour {
 	int boundWidth;
 	int roomCount;
 
+	public Vector3Int getBounds(){
+
+		return new Vector3Int (boundOrigin.x, boundOrigin.y, boundWidth);
+	}
+
 	Rect[] rects;
 	float[,] fullAdjacencies;
 	HashSet<Rect>[] finalAdjacencies; //Array of HashSets holding Rect objects
@@ -92,7 +97,7 @@ public class RandomDungeonGenerator : MonoBehaviour {
 		//Add back a few edges
 		int numEdges = (numVertices * numVertices - numVertices) / 2;
 		int numEdgesAddBack = (int)(numEdges * CONNECTEDNESS);
-		Debug.Log (numEdgesAddBack);
+		//Debug.Log (numEdgesAddBack);
 
 		for (int edge = 0; edge < numEdgesAddBack; edge++) {
 			int node = Random.Range (0, numVertices);
@@ -179,7 +184,7 @@ public class RandomDungeonGenerator : MonoBehaviour {
 			for (int y = boundOrigin.y; y < boundOrigin.y + boundWidth; y++) {
 				TileBase tileAtPos = walkableMap.GetTile (new Vector3Int (x, y, 0));
 				if (tileAtPos != null && t.Contains(tileAtPos)) {
-					Debug.Log ("hi");
+					//Debug.Log ("hi");
 					if (walkableMap.GetTile (new Vector3Int(x - 1, y - 1, 0)) == null)
 						blockedMap.SetTile (new Vector3Int (x - 1, y - 1, 0), wall);
 					if (walkableMap.GetTile (new Vector3Int(x, y - 1, 0)) == null)

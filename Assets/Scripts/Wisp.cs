@@ -17,6 +17,8 @@ public class Wisp : MonoBehaviour {
 	void Awake(){
 		inRange = new List<GameObject> ();
 		light = GetComponentInChildren<Light> ();
+		transform.localScale = new Vector3 (transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+
 	}
 
 	void Update(){
@@ -62,6 +64,8 @@ public class Wisp : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.tag == "Blocked Tile") {
 			speed = -speed;
+			transform.localScale = new Vector3 (transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+			
 		}
 
 	}
