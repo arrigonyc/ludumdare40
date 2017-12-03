@@ -608,6 +608,7 @@ GameObject:
   - component: {fileID: 752267916}
   - component: {fileID: 752267915}
   - component: {fileID: 752267917}
+  - component: {fileID: 752267918}
   m_Layer: 0
   m_Name: Generator
   m_TagString: Untagged
@@ -675,6 +676,24 @@ MonoBehaviour:
   goalPrefab: {fileID: 1282574773633478, guid: 71b8dbe0623c94bb7bd88aa2b0e332e6, type: 2}
   minDist: 5
   maxDist: 100
+--- !u!114 &752267918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 752267914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ba1056a04e74257a7e9ec45d2bd1d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs:
+  - {fileID: 1459078576915154, guid: c5396b53dcf8a46f9a9303a47099a4fe, type: 2}
+  - {fileID: 1704484866907422, guid: c02ae0441f069430e96ed8733b8b7288, type: 2}
+  amount: 0500000002000000
+  walkable: {fileID: 72830928}
+  blocked: {fileID: 737013226}
+  rng: {fileID: 752267915}
 --- !u!1001 &929288207
 Prefab:
   m_ObjectHideFlags: 0

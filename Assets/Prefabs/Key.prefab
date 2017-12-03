@@ -39,7 +39,6 @@ GameObject:
   - component: {fileID: 61950050495165664}
   - component: {fileID: 114591834858604166}
   - component: {fileID: 212847888097347936}
-  - component: {fileID: 114583845081022120}
   m_Layer: 0
   m_Name: Key
   m_TagString: Untagged
@@ -150,21 +149,6 @@ MonoBehaviour:
   intensity_range: {x: 10, y: 30}
   step_range: 0.05
   step_intensity: 0.5
---- !u!114 &114583845081022120
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1399366688930804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a41ca79dfe15d44bd93c957042ca4152, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range_range: {x: 0, y: 0}
-  intensity_range: {x: 0, y: 0}
-  step_range: 0
-  step_intensity: 0
 --- !u!114 &114591834858604166
 MonoBehaviour:
   m_ObjectHideFlags: 1

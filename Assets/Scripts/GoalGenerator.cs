@@ -23,32 +23,7 @@ public class GoalGenerator : MonoBehaviour {
 		bool randomizedGoal = false;
 		bool randomizedKey = false;
 
-//		while (!spawned) {
-//			Vector2 randomized = Random.insideUnitCircle * range;
-//
-//			Vector2 temp = new Vector2 (gameObject.transform.position.x + randomized.x, gameObject.transform.position.y + randomized.y);
-//
-//			Collider2D[] colliders = Physics2D.OverlapPointAll(temp);
-//
-//			if (colliders.Length <= 0) {
-//
-//				location = new Vector3 (temp.x, temp.y, location.z);
-//				spawned = true;
-//			}
-//		}
-//
-//
-//
-//
-//		GameObject clone = Instantiate (prefab, location, Quaternion.identity) as GameObject;
-//		clone.transform.localScale = transform.localScale;
-
 		while (!randomizedGoal) {
-
-
-//			float pos_x = Random.Range(bounds_x.x, bounds_x.y);
-//
-//			float pos_y = Random.Range (bounds_y.x, bounds_y.y);
 
 			Vector3Int randomized = new Vector3Int( Random.Range(bounds_x.x, bounds_x.y) ,Random.Range (bounds_y.x, bounds_y.y), 0);
 
@@ -64,8 +39,6 @@ public class GoalGenerator : MonoBehaviour {
 				goal.transform.localScale = transform.localScale;
 				randomizedGoal = true;
 			}
-
-//			
 
 		}
 
