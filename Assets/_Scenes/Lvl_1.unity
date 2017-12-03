@@ -953,6 +953,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1581331722}
   - component: {fileID: 1581331721}
+  - component: {fileID: 1581331723}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
