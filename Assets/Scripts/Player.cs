@@ -11,7 +11,7 @@ public class Player : MonoBehaviour {
 	private Light light;
 	private int current_light;
 
-	public float light_range_max, light_intensity_max;
+	public float light_range_max, light_intensity_max, light_range_min, light_intensity_min;
 
 	public bool hasKey;
 
@@ -108,8 +108,8 @@ public class Player : MonoBehaviour {
 				light.intensity = Mathf.Min (light.intensity + 1f, light_intensity_max);
 
 			} else if (lt < 0) {
-				light.range = Mathf.Max (light.range - .1f, 2);
-				light.intensity = Mathf.Max (light.intensity - 1f, 10);
+				light.range = Mathf.Max (light.range - .1f, light_range_min);
+				light.intensity = Mathf.Max (light.intensity - 1f, light_intensity_min);
 	
 
 			}

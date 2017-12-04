@@ -156,6 +156,11 @@ Prefab:
       propertyPath: m_GravityScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114833301934951314, guid: 49cef309894914ba2af73b3370a4cc9e,
+        type: 2}
+      propertyPath: speed
+      value: 0.75
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114738198597649988, guid: 49cef309894914ba2af73b3370a4cc9e, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 49cef309894914ba2af73b3370a4cc9e, type: 2}
@@ -212,7 +217,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -260,12 +265,12 @@ Prefab:
     - target: {fileID: 224659716485595092, guid: 01d843e0efb2844089beae29a93f06ec,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 276
+      value: 469.5
       objectReference: {fileID: 0}
     - target: {fileID: 224659716485595092, guid: 01d843e0efb2844089beae29a93f06ec,
         type: 2}
       propertyPath: m_LocalPosition.y
-      value: 151.5
+      value: 207.5
       objectReference: {fileID: 0}
     - target: {fileID: 224659716485595092, guid: 01d843e0efb2844089beae29a93f06ec,
         type: 2}
