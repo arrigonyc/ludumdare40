@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Exit : MonoBehaviour {
 
+	public RandomDungeonGenerator rng;
+
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.tag == "Player") {
 			if (other.GetComponent<Player> ().hasKey) {
-				Debug.Log ("Make it to the next room!");
+				other.GetComponent<Player> ().hasKey = false;
+				other.GetComponentInChildren<Wisp> ().clear ();
+				rng.regenerate ();	
 			}
 		}
 	}

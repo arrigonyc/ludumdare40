@@ -57,7 +57,7 @@ public class RandomDungeonGenerator : MonoBehaviour {
 	HashSet<Rect>[] finalAdjacencies; //Array of HashSets holding Rect objects
 	List<Rect> lines;
 
-	void Start () {
+	void generateNewDungeon(){
 		ChooseParams ();
 		GenerateRects ();
 		GenerateHalls ();
@@ -65,7 +65,32 @@ public class RandomDungeonGenerator : MonoBehaviour {
 		FillWalls ();
 		Refresh ();
 
+		GetComponent<GoalGenerator> ().generate ();
 		GetComponent<EnemyGenerator> ().generate ();
+	
+	}
+
+	void Start () {
+		generateNewDungeon ();
+	}
+
+	public void regenerate(){
+		Clear ();
+		generateNewDungeon ();
+	}
+
+	void Clear(){
+		GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
+		GameObject[] goals = GameObject.FindGameObjectsWithTag ("Exit");
+		for (int i = enemies.Length - 1; i >= 0; i--) {
+			Destroy (enemies [i]);
+		}
+		for (int i = goals.Length - 1; i >= 0; i--) {
+			Destroy (goals [i]);
+		}
+		walkableMap.ClearAllTiles();
+		blockedMap.ClearAllTiles ();
+
 	}
 
 	void Refresh(){

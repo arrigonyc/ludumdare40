@@ -70,7 +70,7 @@ public class EnemyGenerator : MonoBehaviour {
 
 
 					if (walkable_tile != null && blocked_tile == null) {
-						Debug.Log ("grid" + randomized);
+						//Debug.Log ("grid" + randomized);
 						Vector3Int up_left = randomized + new Vector3Int (-1, 1, 0);
 						Vector3Int left = randomized + new Vector3Int (-1, 0, 0);
 						Vector3Int down_left = randomized + new Vector3Int (-1, -1, 0);
@@ -92,7 +92,7 @@ public class EnemyGenerator : MonoBehaviour {
 							attempts++;
 							if (attempts >= max_attempts) {
 								spawned = true;
-								Debug.Log (prefabs[i] + " failure, " + attempts);
+								//Debug.Log (prefabs[i] + " failure, " + attempts);
 
 							}
 						}

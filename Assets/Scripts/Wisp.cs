@@ -33,26 +33,35 @@ public class Wisp : MonoBehaviour {
 
 	}
 
+	public void clear(){
+		inRange.Clear ();
+	}
+
 	void checkEnemies(){
 		for (int i = 0; i < inRange.Count; i++) {
 			inRange [i].GetComponent<EnemyAggresive>().inRange = false;
-			inRange [i].GetComponent<EnemyMovement> ().light_modifier = light.intensity / 20;
+			inRange [i].GetComponent<EnemyMovement> ().light_modifier = 1;
 
 		}
 
 		inRange.Clear ();
 
-		Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), light.range/2);
+		Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), light.range);
 
 		for (int i = 0; i < colliders.Length; i++) {
 	
 			GameObject obj = colliders [i].gameObject;
 			if (obj.tag == "Enemy") {
-				if (obj.GetComponent<EnemyAggresive> () != null) {
-					obj.GetComponent<EnemyAggresive> ().inRange = true;
-					obj.GetComponent<EnemyAggresive> ().target = transform.parent;
-					obj.GetComponent<EnemyMovement> ().light_modifier = light.intensity / 25;
-					inRange.Add (obj);
+				EnemyAggresive enemy = obj.GetComponent<EnemyAggresive> ();
+				EnemyMovement move = obj.GetComponent<EnemyMovement> ();
+				if (enemy != null) {
+					if (enemy.target == null || move.light_modifier < light.intensity/25) {
+						obj.GetComponent<EnemyAggresive> ().inRange = true;
+						obj.GetComponent<EnemyAggresive> ().target = transform.parent;
+						obj.GetComponent<EnemyMovement> ().light_modifier = light.intensity / 25;
+						inRange.Add (obj);
+					}
+
 				}
 			}
 
