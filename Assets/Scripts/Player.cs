@@ -88,6 +88,8 @@ public class Player : MonoBehaviour {
 		if (message.gameObject.activeInHierarchy) {
 			message.gameObject.SetActive (false);
 		}
+
+		shown_message = false;
 		Time.timeScale = 1;
 	}
 	

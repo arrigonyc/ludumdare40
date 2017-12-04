@@ -156,8 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a41ca79dfe15d44bd93c957042ca4152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range_range: {x: 2, y: 4.5}
-  intensity_range: {x: 10, y: 30}
+  range_range: {x: 2, y: 3}
+  intensity_range: {x: 10, y: 20}
   step_range: 0.05
   step_intensity: 0.5
 --- !u!212 &212621868936311032

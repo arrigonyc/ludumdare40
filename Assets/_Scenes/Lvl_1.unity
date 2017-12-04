@@ -743,8 +743,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 202397092}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 370, y: 198, z: 0}
-  m_LocalScale: {x: 1.5416666, y: 1.5416666, z: 1.5416666}
+  m_LocalPosition: {x: 276, y: 126.5, z: 0}
+  m_LocalScale: {x: 1.15, y: 1.15, z: 1.15}
   m_Children:
   - {fileID: 590970319}
   m_Father: {fileID: 0}
@@ -1038,8 +1038,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 558948916}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 370, y: 198, z: 0}
-  m_LocalScale: {x: 1.5416666, y: 1.5416666, z: 1.5416666}
+  m_LocalPosition: {x: 276, y: 126.5, z: 0}
+  m_LocalScale: {x: 1.15, y: 1.15, z: 1.15}
   m_Children:
   - {fileID: 1903463431}
   m_Father: {fileID: 0}
@@ -1593,12 +1593,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabs:
+  - {fileID: 1815510923667000, guid: 2db3e286546de4d07b8c505645795681, type: 2}
   - {fileID: 1908845210726868, guid: 1557fef59ea8746559ac0eea905b29a1, type: 2}
-  - {fileID: 1924629768217614, guid: 4109352ac92dc4d1b9f81f9470b5f3c2, type: 2}
+  - {fileID: 1659612545243316, guid: 4d14e72d2570a43f58002a111b283b21, type: 2}
+  - {fileID: 1914560369172922, guid: e767f3cd64e3a47ad867e9a334d558fd, type: 2}
+  - {fileID: 1322269190700442, guid: 8895a130cb2fb475ea10d16f5642b223, type: 2}
+  - {fileID: 1421866002739136, guid: 4573e3dcc0f4f4821b790cda6676421a, type: 2}
   - {fileID: 1704484866907422, guid: c02ae0441f069430e96ed8733b8b7288, type: 2}
-  - {fileID: 1459078576915154, guid: c5396b53dcf8a46f9a9303a47099a4fe, type: 2}
+  - {fileID: 1327500794800658, guid: c5396b53dcf8a46f9a9303a47099a4fe, type: 2}
   - {fileID: 1139790375458798, guid: 85611136d8cbe4f8488c94f90b646ee6, type: 2}
-  amount: 0100000002000000040000000d00000002000000
+  amount: 010000000100000001000000030000000200000005000000040000000600000004000000
   max_attempts: 2000
   distance: 10
   walkable: {fileID: 72830928}
@@ -2325,10 +2329,10 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 1
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 320, y: 1}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
