@@ -694,10 +694,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 1459078576915154, guid: c5396b53dcf8a46f9a9303a47099a4fe, type: 2}
-  - {fileID: 1704484866907422, guid: c02ae0441f069430e96ed8733b8b7288, type: 2}
+  - {fileID: 1908845210726868, guid: 1557fef59ea8746559ac0eea905b29a1, type: 2}
   - {fileID: 1924629768217614, guid: 4109352ac92dc4d1b9f81f9470b5f3c2, type: 2}
-  amount: 140000000500000002000000
+  - {fileID: 1704484866907422, guid: c02ae0441f069430e96ed8733b8b7288, type: 2}
+  - {fileID: 1459078576915154, guid: c5396b53dcf8a46f9a9303a47099a4fe, type: 2}
+  amount: 01000000020000000500000014000000
+  max_attempts: 200
   distance: 10
   walkable: {fileID: 72830928}
   blocked: {fileID: 737013226}

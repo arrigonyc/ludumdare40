@@ -8,6 +8,7 @@ public class EnemyGenerator : MonoBehaviour {
 
 	public GameObject[] prefabs;
 	public int[] amount;
+	public int max_attempts;
 	public float distance;
 
 	public Tilemap walkable, blocked;
@@ -55,6 +56,8 @@ public class EnemyGenerator : MonoBehaviour {
 				Vector3 max = c.bounds.max;
 				Vector3 extents = c.bounds.extents;
 
+				int attempts = 0;
+
 				while (!spawned) {
 					Vector3Int randomized = new Vector3Int( Random.Range(bounds_x.x, bounds_x.y) ,Random.Range (bounds_y.x, bounds_y.y), 0);
 					TileBase walkable_tile = walkable.GetTile(randomized);
@@ -75,13 +78,21 @@ public class EnemyGenerator : MonoBehaviour {
 							&& blocked.GetTile(down_right) == null && blocked.GetTile(right) == null && blocked.GetTile(up_right) == null  && blocked.GetTile(up) == null ) {
 
 							Vector3 location = walkable.CellToWorld (randomized);
+					
 							Collider2D[] colliders = Physics2D.OverlapAreaAll (new Vector2(location.x - extents.x - distance, location.y + extents.y + distance), new Vector2(max.x + distance, max.y - distance ) );
 
-							Debug.Log (colliders.Length + ", " + prefabs[i]);
+//							Debug.Log (colliders.Length + ", " + prefabs[i]);
 							if (colliders.Length <= 0) {
 								GameObject clone = Instantiate (prefabs [i], location, Quaternion.identity) as GameObject;
 								clone.transform.localScale = transform.localScale;
 								spawned = true;
+								Debug.Log (prefabs[i] + " success, " + attempts);
+							} else {
+								attempts++;
+								if (attempts >= max_attempts) {
+									spawned = true;
+									Debug.Log (prefabs[i] + " failure, " + attempts);
+								}
 							}
 
 						}
