@@ -48,7 +48,7 @@ public class KeyLight : MonoBehaviour {
 			if (obj.tag == "Enemy") {
 				EnemyAggresive enemy = obj.GetComponent<EnemyAggresive> ();
 				EnemyMovement move = obj.GetComponent<EnemyMovement> ();
-				if ((enemy != null && move != null) && (enemy.target == null || move.light_modifier < 1)) {
+				if ((enemy != null && move != null) && (enemy.target == null)) {
 					obj.GetComponent<EnemyAggresive> ().inRange = true;
 					obj.GetComponent<EnemyAggresive> ().target = gameObject.transform;
 					obj.GetComponent<EnemyMovement> ().light_modifier = 1;

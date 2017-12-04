@@ -41,9 +41,14 @@ public class Player : MonoBehaviour {
 
 	private Vector2 dir_normal;
 
+	bool playSound = true;
+
 	public void gameOver(){
+		if (playSound) {
+			FindObjectOfType<AudioManager> ().playSound ("lose");
+			playSound = false;
+		}
 		Time.timeScale = 0;
-		FindObjectOfType<AudioManager> ().playSound ("lose");
 		game_over.gameObject.SetActive (true);
 	}
 

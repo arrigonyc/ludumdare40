@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1906884092739296}
+  m_RootGameObject: {fileID: 1600562026200106}
   m_IsPrefabParent: 1
---- !u!1 &1906884092739296
+--- !u!1 &1600562026200106
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4663246395155612}
-  - component: {fileID: 114917835970951940}
+  - component: {fileID: 4574204963653408}
+  - component: {fileID: 114464604832605402}
   m_Layer: 0
-  m_Name: AudioManager
+  m_Name: AudioManager 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4663246395155612
+--- !u!4 &4574204963653408
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1906884092739296}
+  m_GameObject: {fileID: 1600562026200106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,12 +40,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114917835970951940
+--- !u!114 &114464604832605402
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1906884092739296}
+  m_GameObject: {fileID: 1600562026200106}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0a029917ad2f48538be90aca1cfcc0e, type: 3}
@@ -54,37 +54,49 @@ MonoBehaviour:
   sounds:
   - name: hit
     file: {fileID: 8300000, guid: 4596882fb52804437b38515394b9cc6f, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: lose
     file: {fileID: 8300000, guid: f5549976e306a4a6ebbaa67e6fd5da82, type: 3}
-    volume: 1
-    pitch: 1
+    volume: 0.363
+    pitch: 0.66
     loop: 0
     source: {fileID: 0}
   - name: floor
     file: {fileID: 8300000, guid: 2f13f269cc2104396bf8476fb9206c01, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: select
     file: {fileID: 8300000, guid: 3c7b742cacdad40e3a15555e536beec1, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: potion
     file: {fileID: 8300000, guid: 5aa5ec791cf0a4a17a97a383c7603d13, type: 3}
-    volume: 1
-    pitch: 1
+    volume: 0.25
+    pitch: 1.76
     loop: 0
     source: {fileID: 0}
   - name: hive
-    file: {fileID: 8300000, guid: 8511f118b74fe451dba468b686e204a0, type: 3}
-    volume: 1
+    file: {fileID: 8300000, guid: f55a9e7118cc44cde94623ee3d656f41, type: 3}
+    volume: 0.5
+    pitch: 1.19
+    loop: 0
+    source: {fileID: 0}
+  - name: key
+    file: {fileID: 8300000, guid: 414fdc099daf44d618dcef256ebc8838, type: 3}
+    volume: 0.25
     pitch: 1
     loop: 0
+    source: {fileID: 0}
+  - name: music
+    file: {fileID: 8300000, guid: 05b83ccc05261468cb957ba896471f1a, type: 3}
+    volume: 0.333
+    pitch: 1
+    loop: 1
     source: {fileID: 0}
