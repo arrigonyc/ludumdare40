@@ -13,20 +13,11 @@ public class HealthUI : MonoBehaviour {
 	public bool lerp;
 
 
-	// Use this for initialization
-	void Awake () {
-		img = GetComponent<Image> ();
-
-	}
-	
-	// Update is called once per frame
 	void Update () {
 
-		if (lerp) {
-			img.fillAmount = Mathf.Lerp (img.fillAmount, map (hp.health, hp.maxHealth, 0, 1, 0), Time.deltaTime * Mathf.Max (1, time_modifier));
-		} else {
-			img.fillAmount = map (hp.health, hp.maxHealth, 0, 1, 0);
-		}
+		float fillAmount = map (hp.health, hp.maxHealth, 0, 150, 0);
+		img.rectTransform.sizeDelta = new Vector2 (fillAmount, img.rectTransform.sizeDelta.y);
+
 	}
 
 	private float map(float val, float in_min, float in_max, float out_min, float out_max){
