@@ -11,6 +11,7 @@ public class Key : MonoBehaviour {
 			other.GetComponent<Player> ().hasKey = true;
 			GameObject.FindGameObjectWithTag ("Exit").GetComponent<Collider2D> ().isTrigger = true;
 			GetComponentInChildren<KeyLight> ().clearEnemies ();
+			FindObjectOfType<AudioManager> ().playSound ("key");
 			Destroy (gameObject);
 		}
 	}

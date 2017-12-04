@@ -27,7 +27,7 @@ public class EnemyMovement : MonoBehaviour {
 			if (animationState.normalizedTime >= 1) {
 				anim.SetBool ("spawning", false);
 			}
-		} else if(anim!=null){
+		} else {
 			bool move = body.velocity != Vector2.zero;
 
 
@@ -56,43 +56,51 @@ public class EnemyMovement : MonoBehaviour {
 //		}
 
 			//		Debug.Log (face_dir);
+			if (anim != null) {
+				if (down) {
+					setDirectionAnimation (0, move);
+					if (left) {
+						transform.localRotation = Quaternion.Euler (0, 0, -30);
+						transform.localScale = new Vector3 (-1, 1, 1);
+					} else if (right) {
+						transform.localRotation = Quaternion.Euler (0, 0, 30);
+						transform.localScale = new Vector3 (1, 1, 1);
+					} else {
+						transform.localRotation = Quaternion.identity;
+						transform.localScale = new Vector3 (1, 1, 1);
+					}
 
-			if (down) {
-				setDirectionAnimation (0, move);
-				if (left) {
-					transform.localRotation = Quaternion.Euler (0, 0, -30);
-					transform.localScale = new Vector3 (-1, 1, 1);
-				} else if (right) {
-					transform.localRotation = Quaternion.Euler (0, 0, 30);
-					transform.localScale = new Vector3 (1, 1, 1);
+				} else if (up) {
+					setDirectionAnimation (1, move);
+					if (left) {
+						transform.localRotation = Quaternion.Euler (0, 0, 30);
+						transform.localScale = new Vector3 (-1, 1, 1);
+					} else if (right) {
+						transform.localRotation = Quaternion.Euler (0, 0, -30);
+						transform.localScale = new Vector3 (1, 1, 1);
+					} else {
+						transform.localRotation = Quaternion.identity;
+						transform.localScale = new Vector3 (1, 1, 1);
+					}
 				} else {
-					transform.localRotation = Quaternion.identity;
-					transform.localScale = new Vector3 (1, 1, 1);
-				}
-
-			} else if (up) {
-				setDirectionAnimation (1, move);
-				if (left) {
-					transform.localRotation = Quaternion.Euler (0, 0, 30);
-					transform.localScale = new Vector3 (-1, 1, 1);
-				} else if (right) {
-					transform.localRotation = Quaternion.Euler (0, 0, -30);
-					transform.localScale = new Vector3 (1, 1, 1);
-				} else {
-					transform.localRotation = Quaternion.identity;
-					transform.localScale = new Vector3 (1, 1, 1);
-				}
-			} else {
-				setDirectionAnimation (2, move);
+					setDirectionAnimation (2, move);
 		
 
-				if (left) {
-					transform.localScale = new Vector3 (-1, 1, 1);
-				} else if (right) {
-					transform.localScale = new Vector3 (1, 1, 1);
-				} 
-				transform.localRotation = Quaternion.identity;
+					if (left) {
+						transform.localScale = new Vector3 (-1, 1, 1);
+					} else if (right) {
+						transform.localScale = new Vector3 (1, 1, 1);
+					} 
+					transform.localRotation = Quaternion.identity;
 
+				}
+
+			} else {
+				if (left) {
+					transform.localScale = new Vector3(-1, 1, 1);
+				} else {
+					transform.localScale = new Vector3(1,1,1);
+				}
 			}
 
 		}

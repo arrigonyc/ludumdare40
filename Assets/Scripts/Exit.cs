@@ -11,7 +11,8 @@ public class Exit : MonoBehaviour {
 			if (other.collider.GetComponent<Player> ().hasKey) {
 				other.collider.GetComponent<Player> ().hasKey = false;
 				other.collider.GetComponentInChildren<Wisp> ().clear ();
-				rng.regenerate ();	
+				FindObjectOfType<AudioManager> ().playSound ("floor");
+				rng.nextFloor ();	
 				other.collider.GetComponent<Timer> ().resetTime ();
 			} else {
 				other.collider.GetComponent<Player> ().noKey ();
@@ -24,7 +25,8 @@ public class Exit : MonoBehaviour {
 			if (other.GetComponent<Player> ().hasKey) {
 				other.GetComponent<Player> ().hasKey = false;
 				other.GetComponentInChildren<Wisp> ().clear ();
-				rng.regenerate ();	
+				FindObjectOfType<AudioManager> ().playSound ("floor");
+				rng.nextFloor ();	
 				other.GetComponent<Timer> ().resetTime ();
 			} else {
 				other.GetComponent<Player> ().noKey ();

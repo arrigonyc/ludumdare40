@@ -12,4 +12,8 @@ public class StartMenu : MonoBehaviour {
 	public void exitGame(){
 		Application.Quit ();
 	}
+
+	public void playSelect(){
+		FindObjectOfType<AudioManager> ().playSound ("select");
+	}
 }

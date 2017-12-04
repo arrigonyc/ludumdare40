@@ -20,47 +20,19 @@ public class GoalGenerator : MonoBehaviour {
 		bounds_x = new Vector2Int (rng_range.x, rng_range.x + rng_range.z);
 		bounds_y = new Vector2Int (rng_range.y, rng_range.y + rng_range.z);
 
-		bool randomizedPlayer = false;
+	
 		bool randomizedGoal = false;
 		bool randomizedKey = false;
 
-		while (!randomizedPlayer) {
-			Vector3Int randomized = new Vector3Int( Random.Range(bounds_x.x, bounds_x.y) ,Random.Range (bounds_y.x, bounds_y.y), 0);
-
-			TileBase walkable_tile = walkable.GetTile(randomized);
-			TileBase blocked_tile = blocked.GetTile (randomized);
-
-			if (walkable_tile != null && blocked_tile == null) {
-				Vector3Int up_left = randomized + new Vector3Int (-1, 1, 0);
-				Vector3Int left = randomized + new Vector3Int (-1, 0, 0);
-				Vector3Int down_left = randomized + new Vector3Int (-1, -1, 0);
-				Vector3Int down = randomized + new Vector3Int (0, -1, 0);
-				Vector3Int down_right = randomized + new Vector3Int (1, -1, 0);
-				Vector3Int right = randomized + new Vector3Int (1, 0, 0);
-				Vector3Int up_right = randomized + new Vector3Int (1, 1, 0);
-				Vector3Int up = randomized + new Vector3Int (0, 1, 0);
-				if (blocked.GetTile (up_left) == null && blocked.GetTile (left) == null && blocked.GetTile (down_left) == null && blocked.GetTile (down) == null
-				    && blocked.GetTile (down_right) == null && blocked.GetTile (right) == null && blocked.GetTile (up_right) == null && blocked.GetTile (up) == null) {
-					gen_player_location = new Vector2Int (randomized.x, randomized.y);
-					Vector3 location = walkable.CellToWorld (randomized);
-
-			
-					player.transform.position = location;
-
-					randomizedPlayer = true;
-				}
-			}
-		}
+		generatePlayer ();
 
 		while (!randomizedGoal) {
 
 			Vector3Int randomized = new Vector3Int( Random.Range(bounds_x.x, bounds_x.y) ,Random.Range (bounds_y.x, bounds_y.y), 0);
 			if (withinDistance (new Vector2Int (randomized.x, randomized.y), gen_player_location)) {
 
-				TileBase walkable_tile = walkable.GetTile (randomized);
-				TileBase blocked_tile = blocked.GetTile (randomized);
 
-				if (walkable_tile != null && blocked_tile == null) {
+				if (rng.openSpace (randomized)) {
 					gen_goal_location = new Vector2Int (randomized.x, randomized.y);
 					Vector3 location = walkable.CellToWorld (randomized);
 
@@ -77,10 +49,7 @@ public class GoalGenerator : MonoBehaviour {
 			Vector3Int randomized = new Vector3Int( Random.Range(bounds_x.x, bounds_x.y) ,Random.Range (bounds_y.x, bounds_y.y), 0);
 
 			if(withinDistance(new Vector2Int(randomized.x, randomized.y), gen_goal_location)){
-				TileBase walkable_tile = walkable.GetTile(randomized);
-				TileBase blocked_tile = blocked.GetTile (randomized);
-
-				if (walkable_tile != null && blocked_tile == null) {
+				if (rng.openSpace (randomized)) {
 					Vector3 location = walkable.CellToWorld (randomized);
 
 					GameObject key = Instantiate (keyPrefab, location, Quaternion.identity) as GameObject;
@@ -93,11 +62,33 @@ public class GoalGenerator : MonoBehaviour {
 		}
 	}
 
+	public void generatePlayer(){
+		bool randomizedPlayer = false;
+		while (!randomizedPlayer) {
+			Vector3Int randomized = new Vector3Int( Random.Range(bounds_x.x, bounds_x.y) ,Random.Range (bounds_y.x, bounds_y.y), 0);
+
+
+
+			if (rng.openSpace (randomized)) {
+				gen_player_location = new Vector2Int (randomized.x, randomized.y);
+				Vector3 location = walkable.CellToWorld(randomized);
+
+
+				player.transform.position = location;
+
+				randomizedPlayer = true;
+			}
+
+		}
+	}
+
 
 	bool withinDistance(Vector2Int start, Vector2Int target){
 		float dist = Vector2Int.Distance (start, target);
 
 		return (dist >= minDist && dist <= maxDist);
 	}
+
+
 
 }

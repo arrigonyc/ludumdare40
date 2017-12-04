@@ -12,6 +12,7 @@ public class Hive : MonoBehaviour {
 			clone.transform.localScale = gameObject.transform.localScale;
 			clone.GetComponent<Spawner> ().startSpawn ();
 			//setAnimation
+			FindObjectOfType<AudioManager>().playSound("hive");
 			Destroy(gameObject, 2);
 		}
 	}

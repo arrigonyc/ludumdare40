@@ -126,7 +126,7 @@ MonoBehaviour:
   destination: {x: 0, y: 0}
   check_time: 5
   start_timer: 0
-  patrol_speed: 1.5
+  patrol_speed: 0.67
   enabled: 1
 --- !u!114 &114275094248515260
 MonoBehaviour:
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf9551f219d84155a4c9096367d943f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1.5
+  speed: 0.67
   light_modifier: 1
   direction: {x: 0, y: 0}
 --- !u!114 &114361387283795414
@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f19f5c28e64496280ce6dcf89f082f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
-  knockback: 1.5
+  damage: 1.5
+  knockback: 2
   modifier: 2
 --- !u!114 &114380992885490798
 MonoBehaviour:

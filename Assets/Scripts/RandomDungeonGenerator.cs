@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 using Priority_Queue;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public struct Line {
 	public Vector2 start;
@@ -44,7 +45,7 @@ public class RandomDungeonGenerator : MonoBehaviour {
 	[Range(0,1)]
 	public float CONNECTEDNESS; //int from 0 to 1
 
-	public Canvas[] floors;
+	public Canvas floors;
 	int floor;
 	bool isShowingFloor;
 
@@ -61,6 +62,7 @@ public class RandomDungeonGenerator : MonoBehaviour {
 	List<Rect> lines;
 
 	void generateNewDungeon(){
+		ShowFloorText ();
 		ChooseParams ();
 		GenerateRects ();
 		GenerateHalls ();
@@ -79,6 +81,7 @@ public class RandomDungeonGenerator : MonoBehaviour {
 		maxRoomCount = 1;
 		minRoomWidth = 30;
 		maxRoomWidth = 30;
+
 		ShowFloorText ();
 		ChooseParams ();
 		GenerateRects ();
@@ -86,32 +89,68 @@ public class RandomDungeonGenerator : MonoBehaviour {
 		FillTiles ();
 		FillWalls ();
 		Refresh ();
+
+		GetComponent<GoalGenerator> ().generatePlayer ();
 	}
 
 		
 	void Start () {
-		floor = 0;
+		floor = 1;
 		Clear ();
 		generateNewDungeon ();
 	}
 
-	public void regenerate(){
+	void incrementDifficulty(float mult, ref int x, bool debug = false){
+		if (debug) {
+			Debug.Log (x + ", " + mult + ", " + floor);
+		}
+		x = Mathf.FloorToInt (x + (mult * floor));
+	}
+
+	public void nextFloor(){
 		Clear ();
 		floor++;
-		if (floor == 3)
-			generateBossDungeon ();
-		else
+		incrementDifficulty (1.2f, ref minRoomCount);
+		incrementDifficulty (1.2f, ref maxRoomCount);
+		incrementDifficulty (1.2f, ref minBoundWidth);
+		incrementDifficulty (1.2f, ref maxBoundWidth);
+
+
+
+
+		for (int i = 0; i < GetComponent<EnemyGenerator> ().amount.Length; i++) {
+			
+			incrementDifficulty(GetComponent<EnemyGenerator>().multipliers[i], ref GetComponent<EnemyGenerator>().amount[i], i == 8);
+		}
+
+		GetComponent<GoalGenerator> ().minDist += 1.2f * floor;
+		GetComponent<GoalGenerator> ().maxDist += 1.2f * floor;
+
+//		if (floor == 4)
+//			generateBossDungeon ();
+//		else
 			generateNewDungeon ();
+
+		GameObject.FindGameObjectWithTag ("Player").GetComponent<Player> ().nextLevel ();
+	}
+
+	public void regenerate(){
+		Clear ();
+		generateNewDungeon ();
 	}
 
 	void Clear(){
 		GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
 		GameObject[] goals = GameObject.FindGameObjectsWithTag ("Exit");
+		GameObject[] items = GameObject.FindGameObjectsWithTag ("Item");
 		for (int i = enemies.Length - 1; i >= 0; i--) {
 			Destroy (enemies [i]);
 		}
 		for (int i = goals.Length - 1; i >= 0; i--) {
 			Destroy (goals [i]);
+		}
+		for (int i = items.Length - 1; i >= 0; i--) {
+			Destroy (items [i]);
 		}
 		walkableMap.ClearAllTiles();
 		blockedMap.ClearAllTiles ();
@@ -136,7 +175,8 @@ public class RandomDungeonGenerator : MonoBehaviour {
 	}
 
 	void ShowFloorText() {
-		floors [floor].gameObject.SetActive (true);
+		floors.GetComponentInChildren<Text>().text = "Floor: " + floor.ToString();
+		floors.gameObject.SetActive (true);
 		isShowingFloor = true;
 	}
 
@@ -322,8 +362,55 @@ public class RandomDungeonGenerator : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (isShowingFloor) {
-			float currAlpha = floors [floor].GetComponentInChildren<CanvasRenderer> ().GetAlpha();
-			floors [floor].GetComponentInChildren<CanvasRenderer> ().SetAlpha(currAlpha - .4f * Time.deltaTime);
+			Color c = floors.GetComponentInChildren<Text> ().color ;
+
+			floors.GetComponentInChildren<Text>().color = new Color(c.r, c.g, c.b, c.a - (.2f * Time.deltaTime));
+			if (c.a <= 0) {
+				floors.gameObject.SetActive (false);
+
+				isShowingFloor = false;
+
+				floors.GetComponentInChildren<Text> ().color = new Color (c.r, c.g, c.b, 1);
+			}
 		}
 	}
+
+	public bool walkAble(Vector3Int spot){
+		return blockedMap.GetTile(spot) == null && walkableMap.GetTile(spot) != null;
+	}
+
+	public bool openSpace(Vector3Int spot){
+		if (!(walkAble(spot))) {
+			return false;
+		}
+
+		Vector3 irl = walkableMap.CellToLocal (spot);
+			
+		Vector3Int up_left = spot + new Vector3Int (-1, 1, 0);
+		Vector3Int left = spot + new Vector3Int (-1, 0, 0);
+		Vector3Int down_left = spot + new Vector3Int (-1, -1, 0);
+		Vector3Int down = spot + new Vector3Int (0, -1, 0);
+		Vector3Int down_right = spot + new Vector3Int (1, -1, 0);
+		Vector3Int right = spot + new Vector3Int (1, 0, 0);
+		Vector3Int up_right = spot + new Vector3Int (1, 1, 0);
+		Vector3Int up = spot + new Vector3Int (0, 1, 0);
+
+		Vector3 top_left = walkableMap.CellToWorld (up_left) * 5;
+		Vector3 bottom_right = walkableMap.CellToWorld (down_right) * 5;
+
+		//Debug.DrawLine (top_left, bottom_right);
+
+
+		Collider2D[] mobs = Physics2D.OverlapAreaAll (new Vector2 (top_left.x, top_left.y), new Vector2 (bottom_right.x, bottom_right.y));
+		bool mobbed = (mobs.Length > 0);
+
+//		Debug.Log (mobs.Length);
+
+		return (walkAble(spot) && !mobbed && walkAble (up_left) && walkAble (left)  && walkAble (down_left)  && walkAble (down) 
+			&& walkAble (down_right) && walkAble (right)  && walkAble(up_right)  && walkAble (up) );
+
+	}
+
+
+
 }

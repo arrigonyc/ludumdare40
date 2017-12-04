@@ -120,8 +120,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f19f5c28e64496280ce6dcf89f082f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
-  knockback: 1.5
+  damage: 3
+  knockback: 1
   modifier: 2
 --- !u!114 &114280856407308008
 MonoBehaviour:
@@ -138,7 +138,7 @@ MonoBehaviour:
   range: {x: -4, y: 2}
   max_dist: {x: 0, y: 0}
   destination: {x: 0, y: 0}
-  check_time: 5
+  check_time: 3
   start_timer: 0
   patrol_speed: 1.5
   enabled: 1

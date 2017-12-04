@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  knockback: 1
+  knockback: 0.75
   modifier: 2
 --- !u!114 &114470814539327088
 MonoBehaviour:

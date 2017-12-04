@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
@@ -38,13 +39,19 @@ public class Player : MonoBehaviour {
 	private float message_start;
 	private bool shown_message = false;
 
+	private Vector2 dir_normal;
+
 	public void gameOver(){
 		Time.timeScale = 0;
+		FindObjectOfType<AudioManager> ().playSound ("lose");
 		game_over.gameObject.SetActive (true);
 	}
 
 	public void noKey(){
+		
 		if (!shown_message) {
+			Debug.Log ("!");
+			Debug.Log (message == null);
 			message.gameObject.SetActive (true);
 			shown_message = true;
 			message_start = Time.time;
@@ -90,6 +97,7 @@ public class Player : MonoBehaviour {
 		}
 
 		shown_message = false;
+		floors_traversed = 0;
 		Time.timeScale = 1;
 	}
 	
@@ -101,6 +109,9 @@ public class Player : MonoBehaviour {
 		}
 
 		if (!knockedBack) {
+
+
+
 			float horizontal = Input.GetAxisRaw ("Horizontal");
 			float vertical = Input.GetAxisRaw ("Vertical");
 			float lt = Input.GetAxisRaw ("Light");
@@ -121,46 +132,66 @@ public class Player : MonoBehaviour {
 			if (horizontal > 0) {
 				right = true;
 				left = false;
+				dir_normal.x = 1;
 			} else if (horizontal < 0) {
 				left = true;
 				right = false;
+				dir_normal.x = -1;
 			} else {
 				left = right = false;
+
 			}
 
 			if (vertical > 0) {
 				up = true;
 				down = false;
+				dir_normal.y = 1;
 			} else if (vertical < 0) {
 				up = false;
 				down = true;
+				dir_normal.y = -1;
 			} else {
 				up = down = false;
+
 			}
 
 			Vector2 new_vel = Vector2.zero;
 
 			if (left) {
 				new_vel.x -= speed;
-				anim.SetInteger ("dx", 1);
+
 			} else if (right) {
 				new_vel.x += speed;
-				anim.SetInteger ("dx", 1);
-			} else {
-				anim.SetInteger ("dx", 0);
-			}
+
+			} 
 
 			if (up) {
 				new_vel.y += speed;
-				anim.SetInteger ("dy", 1);
+
 			} else if (down) {
 				new_vel.y -= speed;
-				anim.SetInteger ("dy", -1);
-			} else {
-				anim.SetInteger ("dy", 0);
-			}
+			} 
 
 			body.velocity = new_vel;
+
+			bool move = body.velocity != Vector2.zero;
+
+			if (dir_normal.y < 0) {
+				transform.localScale = new Vector3 (1, 1, 1);
+				setDirectionAnimation (0, move);
+
+			} else if (dir_normal.y > 0) {
+				transform.localScale = new Vector3 (1, 1, 1);
+				setDirectionAnimation (1, move);
+
+			} else if (dir_normal.x < 0) {
+				transform.localScale = new Vector3 (-1, 1, 1);
+				setDirectionAnimation (2, move);
+			}else if (dir_normal.x > 0) {
+				transform.localScale = new Vector3 (1, 1, 1);
+				setDirectionAnimation (2, move);
+			} 
+				
 		} else {
 			if (Mathf.Floor (transform.position.x) == Mathf.Floor (knock_destination.x)) {
 				body.velocity = new Vector2 (0, body.velocity.y);
@@ -209,6 +240,11 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+	void setDirectionAnimation(int i, bool moving){
+		anim.SetInteger ("direction", i);
+		anim.SetBool ("moving", moving);
+	}
+
 	IEnumerator Flicker(){
 		
 		while (flickering) {
@@ -231,6 +267,7 @@ public class Player : MonoBehaviour {
 
 	public void knockBack(Vector2 dir, float knock_strength, float knock_modifier){
 		if (!flickering) {
+			FindObjectOfType<AudioManager> ().playSound ("hit");
 			knockedBack = true;
 			body.velocity = dir * speed * knock_modifier;
 			knock_destination = new Vector2 (transform.position.x, transform.position.y) + (dir * (knock_strength * knock_modifier));
@@ -239,10 +276,19 @@ public class Player : MonoBehaviour {
 			temp_range = light.range;
 			temp_color = light.color;
 			light.color = onHit_color;
-			light.intensity = 30;
-			light.range = 4.5f;
+			light.intensity = light_intensity_max;
+			light.range = light_range_max;
 			max_light_start = Time.time;
 		}
+	}
+
+	private int floors_traversed = 0;
+	public Text game_over_score;
+
+	public void nextLevel(){
+		floors_traversed++;
+		game_over_score.text = "SCORE: " + floors_traversed.ToString ();
+
 	}
 
 

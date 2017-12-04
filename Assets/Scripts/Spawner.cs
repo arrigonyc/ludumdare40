@@ -43,6 +43,8 @@ public class Spawner : MonoBehaviour {
 
 						location = new Vector3 (temp.x, temp.y, location.z);
 						spawned = true;
+
+
 					}
 				}
 
