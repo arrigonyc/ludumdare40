@@ -15,12 +15,15 @@ public class HealthUI : MonoBehaviour {
 
 	void Update () {
 
-		float fillAmount = map (hp.health, hp.maxHealth, 0, 150, 0);
-		img.rectTransform.sizeDelta = new Vector2 (fillAmount, img.rectTransform.sizeDelta.y);
+		float fillAmount = hp.health / hp.maxHealth;
+
+		float tileAmount = map (fillAmount, 0, 1, 0, 150);
+
+		img.rectTransform.sizeDelta = new Vector2 (tileAmount, img.rectTransform.sizeDelta.y);
 
 	}
 
 	private float map(float val, float in_min, float in_max, float out_min, float out_max){
-		return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+		return (val - in_min) * (out_max - out_min) / (in_max - in_min);
 	}
 }

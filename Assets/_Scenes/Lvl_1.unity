@@ -2388,6 +2388,16 @@ Prefab:
       propertyPath: game_over
       value: 
       objectReference: {fileID: 73609543}
+    - target: {fileID: 114738198597649988, guid: 49cef309894914ba2af73b3370a4cc9e,
+        type: 2}
+      propertyPath: health
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114738198597649988, guid: 49cef309894914ba2af73b3370a4cc9e,
+        type: 2}
+      propertyPath: maxHealth
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 49cef309894914ba2af73b3370a4cc9e, type: 2}
   m_IsPrefabParent: 0
