@@ -201,6 +201,10 @@ public class Player : MonoBehaviour {
 				message.gameObject.SetActive (false);
 			}
 		}
+
+		if (health <= 0) {
+			gameOver ();
+		}
 	}
 
 	IEnumerator Flicker(){
