@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
 
-	public Canvas pause;
+	public Canvas pause, message, game_over;
 
 	public float speed;
 	private Rigidbody2D body;
@@ -34,6 +34,23 @@ public class Player : MonoBehaviour {
 
 	public Animator anim;
 
+	private float message_duration = 3;
+	private float message_start;
+	private bool shown_message = false;
+
+	public void gameOver(){
+		Time.timeScale = 0;
+		game_over.gameObject.SetActive (true);
+	}
+
+	public void noKey(){
+		if (!shown_message) {
+			message.gameObject.SetActive (true);
+			shown_message = true;
+			message_start = Time.time;
+		} 
+	}
+
 	// Use this for initialization
 	void Awake () {
 		sprite = GetComponent<SpriteRenderer> ();
@@ -58,6 +75,20 @@ public class Player : MonoBehaviour {
 		transform.position = Vector3.zero;
 		light.range = 3.5f;
 		light.intensity = 20;
+		health = maxHealth;
+		GetComponent<Timer> ().resetTime ();
+		if (game_over.gameObject.activeInHierarchy) {
+			game_over.gameObject.SetActive (false);
+
+		}
+		if (pause.gameObject.activeInHierarchy) {
+			pause.gameObject.SetActive (false);
+
+		}
+		if (message.gameObject.activeInHierarchy) {
+			message.gameObject.SetActive (false);
+		}
+		Time.timeScale = 1;
 	}
 	
 	// Update is called once per frame
@@ -160,6 +191,14 @@ public class Player : MonoBehaviour {
 				flickering = false;
 				StopCoroutine (Flicker ());
 				flicker_start = 0;
+			}
+		}
+
+		if (shown_message) {
+			float elapsed = Time.time - message_start;
+			if (elapsed >= message_duration) {
+				shown_message = false;
+				message.gameObject.SetActive (false);
 			}
 		}
 	}

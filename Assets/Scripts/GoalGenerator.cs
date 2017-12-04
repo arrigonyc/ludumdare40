@@ -31,11 +31,22 @@ public class GoalGenerator : MonoBehaviour {
 			TileBase blocked_tile = blocked.GetTile (randomized);
 
 			if (walkable_tile != null && blocked_tile == null) {
-				gen_player_location = new Vector2Int(randomized.x, randomized.y);
-				Vector3 location = walkable.CellToWorld (randomized);
+				Vector3Int up_left = randomized + new Vector3Int (-1, 1, 0);
+				Vector3Int left = randomized + new Vector3Int (-1, 0, 0);
+				Vector3Int down_left = randomized + new Vector3Int (-1, -1, 0);
+				Vector3Int down = randomized + new Vector3Int (0, -1, 0);
+				Vector3Int down_right = randomized + new Vector3Int (1, -1, 0);
+				Vector3Int right = randomized + new Vector3Int (1, 0, 0);
+				Vector3Int up_right = randomized + new Vector3Int (1, 1, 0);
+				Vector3Int up = randomized + new Vector3Int (0, 1, 0);
+				if (blocked.GetTile (up_left) == null && blocked.GetTile (left) == null && blocked.GetTile (down_left) == null && blocked.GetTile (down) == null
+				    && blocked.GetTile (down_right) == null && blocked.GetTile (right) == null && blocked.GetTile (up_right) == null && blocked.GetTile (up) == null) {
+					gen_player_location = new Vector2Int (randomized.x, randomized.y);
+					Vector3 location = walkable.CellToWorld (randomized);
 
-				player.transform.position = location;
-				randomizedPlayer = true;
+					player.transform.position = location;
+					randomizedPlayer = true;
+				}
 			}
 		}
 

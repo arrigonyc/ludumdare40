@@ -47,9 +47,7 @@ public class RandomDungeonGenerator : MonoBehaviour {
 	int roomCount;
 
 	public Vector3Int getBounds(){
-		Vector3Int result = new Vector3Int (boundOrigin.x, boundOrigin.y, boundWidth);
-		Debug.Log (result);
-		return result;
+		return new Vector3Int (boundOrigin.x, boundOrigin.y, boundWidth);
 	}
 
 	Rect[] rects;
