@@ -44,7 +44,9 @@ public class GoalGenerator : MonoBehaviour {
 					gen_player_location = new Vector2Int (randomized.x, randomized.y);
 					Vector3 location = walkable.CellToWorld (randomized);
 
+			
 					player.transform.position = location;
+
 					randomizedPlayer = true;
 				}
 			}

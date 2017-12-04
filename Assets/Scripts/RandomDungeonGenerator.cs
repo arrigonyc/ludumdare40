@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Priority_Queue;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public struct Line {
 	public Vector2 start;
@@ -68,7 +69,9 @@ public class RandomDungeonGenerator : MonoBehaviour {
 	
 	}
 
+		
 	void Start () {
+		Clear ();
 		generateNewDungeon ();
 	}
 
@@ -88,6 +91,8 @@ public class RandomDungeonGenerator : MonoBehaviour {
 		}
 		walkableMap.ClearAllTiles();
 		blockedMap.ClearAllTiles ();
+
+		Time.timeScale = 1;
 
 	}
 

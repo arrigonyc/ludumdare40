@@ -125,7 +125,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4978786323950972, guid: 49cef309894914ba2af73b3370a4cc9e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.5336101
+      value: 0.533
       objectReference: {fileID: 0}
     - target: {fileID: 4978786323950972, guid: 49cef309894914ba2af73b3370a4cc9e, type: 2}
       propertyPath: m_LocalPosition.z
@@ -453,7 +453,7 @@ Prefab:
     - target: {fileID: 114886480074159698, guid: 01d843e0efb2844089beae29a93f06ec,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Lvl_1
+      value: Help Scene
       objectReference: {fileID: 0}
     - target: {fileID: 1764424861381786, guid: 01d843e0efb2844089beae29a93f06ec, type: 2}
       propertyPath: m_Name
@@ -493,6 +493,10 @@ Prefab:
         type: 2}
       propertyPath: m_AnchoredPosition.x
       value: 209
+      objectReference: {fileID: 0}
+    - target: {fileID: 1110828627019802, guid: 01d843e0efb2844089beae29a93f06ec, type: 2}
+      propertyPath: m_Name
+      value: Main Menu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 01d843e0efb2844089beae29a93f06ec, type: 2}
