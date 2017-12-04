@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 72830926}
   - component: {fileID: 72830928}
   - component: {fileID: 72830927}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Walkable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 737013229}
   - component: {fileID: 737013228}
   - component: {fileID: 737013227}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Blocked
   m_TagString: Blocked Tile
   m_Icon: {fileID: 0}
@@ -634,7 +634,7 @@ MonoBehaviour:
   maxRoomWidth: 27
   minRoomCount: 12
   maxRoomCount: 12
-  obstacleFrequency: 0.01
+  obstacleFrequency: 0.007
   walkableMap: {fileID: 72830928}
   blockedMap: {fileID: 737013226}
   t:
@@ -699,7 +699,7 @@ MonoBehaviour:
   - {fileID: 1704484866907422, guid: c02ae0441f069430e96ed8733b8b7288, type: 2}
   - {fileID: 1459078576915154, guid: c5396b53dcf8a46f9a9303a47099a4fe, type: 2}
   amount: 01000000020000000500000014000000
-  max_attempts: 200
+  max_attempts: 2000
   distance: 10
   walkable: {fileID: 72830928}
   blocked: {fileID: 737013226}

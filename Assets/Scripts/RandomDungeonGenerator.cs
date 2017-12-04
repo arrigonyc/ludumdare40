@@ -47,8 +47,9 @@ public class RandomDungeonGenerator : MonoBehaviour {
 	int roomCount;
 
 	public Vector3Int getBounds(){
-
-		return new Vector3Int (boundOrigin.x, boundOrigin.y, boundWidth);
+		Vector3Int result = new Vector3Int (boundOrigin.x, boundOrigin.y, boundWidth);
+		Debug.Log (result);
+		return result;
 	}
 
 	Rect[] rects;
@@ -62,6 +63,19 @@ public class RandomDungeonGenerator : MonoBehaviour {
 		GenerateHalls ();
 		FillTiles ();
 		FillWalls ();
+		Refresh ();
+
+		GetComponent<EnemyGenerator> ().generate ();
+	}
+
+	void Refresh(){
+		blockedMap.RefreshAllTiles ();
+		blockedMap.GetComponent<TilemapCollider2D> ().enabled = false;
+		blockedMap.GetComponent<TilemapCollider2D> ().enabled = true;
+		blockedMap.GetComponent<CompositeCollider2D> ().enabled = false;
+		blockedMap.GetComponent<CompositeCollider2D> ().enabled = true;
+		blockedMap.gameObject.SetActive (false);
+		blockedMap.gameObject.SetActive (true);
 	}
 
 	void ChooseParams() {

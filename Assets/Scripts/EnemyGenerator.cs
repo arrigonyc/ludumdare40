@@ -17,7 +17,7 @@ public class EnemyGenerator : MonoBehaviour {
 	private Vector2Int bounds_x, bounds_y;
 
 	// Use this for initialization
-	void Start() {
+	public void generate() {
 		Vector3Int rng_range = rng.getBounds ();
 		bounds_x = new Vector2Int (rng_range.x, rng_range.x + rng_range.z);
 		bounds_y = new Vector2Int (rng_range.y, rng_range.y + rng_range.z);
@@ -50,22 +50,27 @@ public class EnemyGenerator : MonoBehaviour {
 
 
 		for (int i = 0; i < prefabs.Length; i++) {
+			Collider2D c = prefabs [i].GetComponent<Collider2D> ();
+			Vector3 max = c.bounds.max;
+			Vector3 extents = c.bounds.extents;
+
 			for(int j = 0; j < amount[i]; j++){
 				bool spawned = false;
-				Collider2D c = prefabs [i].GetComponent<Collider2D> ();
-				Vector3 max = c.bounds.max;
-				Vector3 extents = c.bounds.extents;
+
 
 				int attempts = 0;
 
 				while (!spawned) {
 					Vector3Int randomized = new Vector3Int( Random.Range(bounds_x.x, bounds_x.y) ,Random.Range (bounds_y.x, bounds_y.y), 0);
+
+			
 					TileBase walkable_tile = walkable.GetTile(randomized);
 					TileBase blocked_tile = blocked.GetTile (randomized);
 
 
 
 					if (walkable_tile != null && blocked_tile == null) {
+						Debug.Log ("grid" + randomized);
 						Vector3Int up_left = randomized + new Vector3Int (-1, 1, 0);
 						Vector3Int left = randomized + new Vector3Int (-1, 0, 0);
 						Vector3Int down_left = randomized + new Vector3Int (-1, -1, 0);
@@ -77,26 +82,20 @@ public class EnemyGenerator : MonoBehaviour {
 						if (blocked.GetTile(up_left) == null && blocked.GetTile(left) == null && blocked.GetTile(down_left) == null && blocked.GetTile(down) == null
 							&& blocked.GetTile(down_right) == null && blocked.GetTile(right) == null && blocked.GetTile(up_right) == null  && blocked.GetTile(up) == null ) {
 
-							Vector3 location = walkable.CellToWorld (randomized);
+							Vector3 location = walkable.CellToLocal (randomized);
 					
-							Collider2D[] colliders = Physics2D.OverlapAreaAll (new Vector2(location.x - extents.x - distance, location.y + extents.y + distance), new Vector2(max.x + distance, max.y - distance ) );
-
-//							Debug.Log (colliders.Length + ", " + prefabs[i]);
-							if (colliders.Length <= 0) {
-								GameObject clone = Instantiate (prefabs [i], location, Quaternion.identity) as GameObject;
-								clone.transform.localScale = transform.localScale;
+							GameObject clone = Instantiate (prefabs [i], location, Quaternion.identity) as GameObject;
+							clone.transform.localScale = transform.localScale;
+							spawned = true;
+					
+						} else {
+							attempts++;
+							if (attempts >= max_attempts) {
 								spawned = true;
-								Debug.Log (prefabs[i] + " success, " + attempts);
-							} else {
-								attempts++;
-								if (attempts >= max_attempts) {
-									spawned = true;
-									Debug.Log (prefabs[i] + " failure, " + attempts);
-								}
+								Debug.Log (prefabs[i] + " failure, " + attempts);
+
 							}
-
 						}
-
 					}
 				}
 			}
