@@ -44,6 +44,10 @@ public class RandomDungeonGenerator : MonoBehaviour {
 	[Range(0,1)]
 	public float CONNECTEDNESS; //int from 0 to 1
 
+	public Canvas[] floors;
+	int floor;
+	bool isShowingFloor;
+
 	int boundWidth;
 	int roomCount;
 
@@ -69,15 +73,35 @@ public class RandomDungeonGenerator : MonoBehaviour {
 	
 	}
 
+	void generateBossDungeon() {
+		boundWidth = 50;
+		minRoomCount = 1;
+		maxRoomCount = 1;
+		minRoomWidth = 30;
+		maxRoomWidth = 30;
+		ShowFloorText ();
+		ChooseParams ();
+		GenerateRects ();
+		GenerateHalls ();
+		FillTiles ();
+		FillWalls ();
+		Refresh ();
+	}
+
 		
 	void Start () {
+		floor = 0;
 		Clear ();
 		generateNewDungeon ();
 	}
 
 	public void regenerate(){
 		Clear ();
-		generateNewDungeon ();
+		floor++;
+		if (floor == 3)
+			generateBossDungeon ();
+		else
+			generateNewDungeon ();
 	}
 
 	void Clear(){
@@ -109,6 +133,11 @@ public class RandomDungeonGenerator : MonoBehaviour {
 	void ChooseParams() {
 		boundWidth = Random.Range (minBoundWidth, maxBoundWidth);
 		roomCount = Random.Range (minRoomCount, maxRoomCount);
+	}
+
+	void ShowFloorText() {
+		floors [floor].gameObject.SetActive (true);
+		isShowingFloor = true;
 	}
 
 	void GenerateRects(){
@@ -292,6 +321,9 @@ public class RandomDungeonGenerator : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		
+		if (isShowingFloor) {
+			float currAlpha = floors [floor].GetComponentInChildren<CanvasRenderer> ().GetAlpha();
+			floors [floor].GetComponentInChildren<CanvasRenderer> ().SetAlpha(currAlpha - .4f * Time.deltaTime);
+		}
 	}
 }
